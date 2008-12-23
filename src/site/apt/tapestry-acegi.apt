@@ -1,0 +1,42 @@
+ -----
+ Tapestry-Acegi
+ -----
+ James Carman
+ -----
+
+Description
+
+  This library is an extension to {{{http://jakarta.apache.org/tapestry/}Tapestry 4.0}} that provides
+  {{{http://www.acegisecurity.org/}Acegi Security}} integration.  The tapestry-acegi module provides
+  a number features making it easy to use Acegi Security within Tapestry:
+
+Secure Pages
+
+  In order to secure a page, all you have to do is annotate the page class with the Acegi @Secured
+  annotation:
+
++----+
+@Secured("ROLE_ADMIN")
+public abstract class AdminPage extends BasePage
+{
+}
++----+
+
+Secure Listener Methods
+
+  In order to secure a listener method, all you have to do is annotate the listener method with the
+  Acegi @Secured annotation:
+
++----+
+@Secured("ROLE_ADMIN")
+public void doSomeAdminTask()
+{
+}
++----+
+
+Availability
+
+  An initial version of the library is now available in the Maven 2 repository
+  http://www.carmanconsulting.com/mvn/
+
+  The group id is <<com.javaforge.tapestry>> and the artifact id is <<tapestry-acegi>>.

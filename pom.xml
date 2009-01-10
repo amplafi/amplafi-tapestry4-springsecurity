@@ -24,7 +24,7 @@
         <groupId>org.amplafi</groupId>
         <artifactId>amplafi-opensource-parent</artifactId>
         <version>0.9-SNAPSHOT</version>
-        <relativePath>../amplafi-opensource-parent/pom.xml</relativePath>        
+        <relativePath>../amplafi-opensource-parent/pom.xml</relativePath>
     </parent>
     <name>Tapestry Javaforge Acegi</name>
     <inceptionYear>2006</inceptionYear>
@@ -95,12 +95,12 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <optional>true</optional>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <optional>true</optional>
-        </dependency>                
+        </dependency>
         <dependency>
             <groupId>commons-proxy</groupId>
             <artifactId>commons-proxy</artifactId>
@@ -115,7 +115,7 @@
             <groupId>hivemind</groupId>
             <artifactId>hivemind-lib</artifactId>
             <optional>true</optional>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -125,13 +125,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <optional>true</optional>
-        </dependency>                
+        </dependency>
         <dependency>
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
             <version>1.0</version>
             <optional>true</optional>
-        </dependency>                
+        </dependency>
         <dependency>
             <groupId>org.acegisecurity</groupId>
             <artifactId>acegi-security</artifactId>
@@ -146,7 +146,7 @@
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-framework</artifactId>
             <optional>true</optional>
-        </dependency>                
+        </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-annotations</artifactId>

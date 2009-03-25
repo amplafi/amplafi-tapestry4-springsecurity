@@ -27,7 +27,6 @@
         <relativePath>../amplafi-opensource-parent/pom.xml</relativePath>
     </parent>
     <name>Tapestry Javaforge Acegi</name>
-    <inceptionYear>2006</inceptionYear>
     <developers>
         <developer>
             <id>JC</id>
@@ -42,51 +41,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <build>
-        <defaultGoal>deploy</defaultGoal>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <inherited>false</inherited>
-                <configuration>
-                    <altDeploymentRepository>
-                        amplafi.public::default::ftp://amplafi.com/httpdocs/repository
-                    </altDeploymentRepository>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                            <goal>test-jar</goal>
-                        </goals>
-                        <configuration>
-                            <attach>true</attach>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
     <dependencies>
         <dependency>
             <groupId>commons-lang</groupId>

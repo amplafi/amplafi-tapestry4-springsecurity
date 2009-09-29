@@ -227,7 +227,7 @@ public class ExceptionTranslationFilter implements ExceptionPresenterFilter
         authenticationEntryPoint.commence(request, response, reason);
     }
 
-    public void setRequset(HttpServletRequest request)
+    public void setRequest(HttpServletRequest request)
     {
         this.request = request;
     }

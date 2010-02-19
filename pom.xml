@@ -46,6 +46,7 @@
         <spring-build>2.0.5</spring-build>
     </properties>
     <build>
+        <defaultGoal>deploy</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -16,14 +16,14 @@
 
 package com.javaforge.tapestry.acegi.enhance;
 
-import com.javaforge.tapestry.acegi.service.SecurityUtils;
-import org.acegisecurity.ConfigAttributeDefinition;
-import org.acegisecurity.annotation.SecurityAnnotationAttributes;
+import java.util.Collection;
+
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.event.PageValidateListener;
+import org.springframework.security.ConfigAttributeDefinition;
 
-import java.util.Collection;
+import com.javaforge.tapestry.acegi.service.SecurityUtils;
 
 /**
  * @author James Carman
@@ -43,8 +43,6 @@ public class SecuredPageValidateListener implements PageValidateListener
 
     public static void addTo(SecurityUtils securityUtils, IPage page)
     {
-        SecurityAnnotationAttributes attributes = new SecurityAnnotationAttributes();
-        final Collection securityConfigs = attributes.getAttributes(page.getClass());
         final SecuredPageValidateListener securedPageValidateListener = new SecuredPageValidateListener(securityUtils, page);
 
         page.addPageValidateListener(securedPageValidateListener);

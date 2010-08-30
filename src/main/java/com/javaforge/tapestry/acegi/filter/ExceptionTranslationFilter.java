@@ -15,26 +15,31 @@
  */
 
 package com.javaforge.tapestry.acegi.filter;
-import org.acegisecurity.*;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.ui.AbstractProcessingFilter;
-import org.acegisecurity.ui.AccessDeniedHandler;
-import org.acegisecurity.ui.AccessDeniedHandlerImpl;
-import org.acegisecurity.ui.AuthenticationEntryPoint;
-import org.acegisecurity.ui.savedrequest.SavedRequest;
-import org.acegisecurity.util.PortResolver;
-import org.acegisecurity.util.PortResolverImpl;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.BindingException;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.error.ExceptionPresenter;
+import org.springframework.security.AccessDeniedException;
+import org.springframework.security.AuthenticationException;
+import org.springframework.security.AuthenticationTrustResolver;
+import org.springframework.security.AuthenticationTrustResolverImpl;
+import org.springframework.security.InsufficientAuthenticationException;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.ui.AbstractProcessingFilter;
+import org.springframework.security.ui.AccessDeniedHandler;
+import org.springframework.security.ui.AccessDeniedHandlerImpl;
+import org.springframework.security.ui.AuthenticationEntryPoint;
+import org.springframework.security.ui.savedrequest.SavedRequest;
+import org.springframework.security.util.PortResolver;
+import org.springframework.security.util.PortResolverImpl;
 import org.springframework.util.Assert;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author James Carman
@@ -217,7 +222,7 @@ public class ExceptionTranslationFilter implements ExceptionPresenterFilter
         {
             // Store the HTTP request itself. Used by AbstractProcessingFilter
             // for redirection after successful authentication (SEC-29)
-            request.getSession().setAttribute(AbstractProcessingFilter.ACEGI_SAVED_REQUEST_KEY, savedRequest);
+            request.getSession().setAttribute(AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY, savedRequest);
         }
 
         // SEC-112: Clear the SecurityContextHolder's Authentication, as the

@@ -16,16 +16,17 @@
 
 package com.javaforge.tapestry.acegi.enhance;
 
-import com.javaforge.tapestry.acegi.service.SecurityUtils;
-import org.acegisecurity.ConfigAttributeDefinition;
+import java.lang.reflect.Method;
+
 import org.apache.commons.logging.Log;
 import org.apache.hivemind.Location;
 import org.apache.hivemind.service.MethodSignature;
 import org.apache.tapestry.annotations.MethodAnnotationEnhancementWorker;
 import org.apache.tapestry.enhance.EnhancementOperation;
 import org.apache.tapestry.spec.IComponentSpecification;
+import org.springframework.security.ConfigAttributeDefinition;
 
-import java.lang.reflect.Method;
+import com.javaforge.tapestry.acegi.service.SecurityUtils;
 
 /**
  * @author James Carman

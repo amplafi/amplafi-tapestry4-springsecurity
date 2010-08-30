@@ -26,7 +26,7 @@
         <version>0.9.2-SNAPSHOT</version>
         <relativePath>../amplafi-opensource-parent/pom.xml</relativePath>
     </parent>
-    <name>Tapestry Javaforge Acegi</name>
+    <name>Tapestry Javaforge</name>
     <developers>
         <developer>
             <id>JC</id>
@@ -42,8 +42,8 @@
         </license>
     </licenses>
     <properties>
-        <acegi-security-build>1.0.5</acegi-security-build>
-        <spring-build>2.0.5</spring-build>
+        <spring-security-build>2.0.0</spring-security-build>
+        <spring-build>2.0.8</spring-build>
     </properties>
     <build>
         <defaultGoal>deploy</defaultGoal>
@@ -109,11 +109,11 @@
             <version>1.0</version>
             <optional>true</optional>
         </dependency>
-        <!-- BEGIN Acegi security -->
+        <!-- BEGIN Spring security -->
         <dependency>
-            <groupId>org.acegisecurity</groupId>
-            <artifactId>acegi-security-tiger</artifactId>
-            <version>${acegi-security-build}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core-tiger</artifactId>
+            <version>${spring-security-build}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-lang</groupId>
@@ -126,9 +126,9 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.acegisecurity</groupId>
-            <artifactId>acegi-security</artifactId>
-            <version>${acegi-security-build}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security-build}</version>
             <exclusions>
                 <exclusion>
                     <groupId>avalon-framework</groupId>
@@ -152,7 +152,7 @@
             <version>${spring-build}</version>
             <optional>true</optional>
         </dependency>
-        <!-- END Acegi Security -->
+        <!-- END spring Security -->
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-framework</artifactId>

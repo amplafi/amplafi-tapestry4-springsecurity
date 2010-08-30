@@ -16,11 +16,8 @@
 
 package com.javaforge.hivemind.acegi.interceptor;
 
-import org.acegisecurity.AccessDecisionManager;
-import org.acegisecurity.AuthenticationManager;
-import org.acegisecurity.intercept.method.MethodDefinitionSource;
-import org.acegisecurity.intercept.method.MethodDefinitionSourceEditor;
-import org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor;
+import java.util.List;
+
 import org.apache.commons.proxy.Interceptor;
 import org.apache.commons.proxy.ProxyFactory;
 import org.apache.commons.proxy.interceptor.MethodInterceptorAdapter;
@@ -28,8 +25,11 @@ import org.apache.hivemind.InterceptorStack;
 import org.apache.hivemind.ServiceInterceptorFactory;
 import org.apache.hivemind.internal.Module;
 import org.springframework.context.ApplicationEventPublisher;
-
-import java.util.List;
+import org.springframework.security.AccessDecisionManager;
+import org.springframework.security.AuthenticationManager;
+import org.springframework.security.intercept.method.MethodDefinitionSource;
+import org.springframework.security.intercept.method.MethodDefinitionSourceEditor;
+import org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor;
 
 /**
  * @author James Carman

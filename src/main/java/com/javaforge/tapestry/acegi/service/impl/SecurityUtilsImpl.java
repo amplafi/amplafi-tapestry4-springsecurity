@@ -16,18 +16,24 @@
 
 package com.javaforge.tapestry.acegi.service.impl;
 
-import com.javaforge.tapestry.acegi.service.SecurityUtils;
-import org.acegisecurity.*;
-import org.acegisecurity.annotation.SecurityAnnotationAttributes;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.runas.NullRunAsManager;
+import java.lang.reflect.Method;
+
 import org.apache.commons.logging.Log;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.AccessDecisionManager;
+import org.springframework.security.Authentication;
+import org.springframework.security.AuthenticationCredentialsNotFoundException; 
+import org.springframework.security.AuthenticationManager;
+import org.springframework.security.ConfigAttributeDefinition;
+import org.springframework.security.RunAsManager;
+import org.springframework.security.SpringSecurityMessageSource;
+import org.springframework.security.annotation.Secured;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.runas.NullRunAsManager;
 import org.springframework.util.Assert;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
+import com.javaforge.tapestry.acegi.service.SecurityUtils;
 
 /**
  * @author James Carman
@@ -40,7 +46,7 @@ public class SecurityUtilsImpl implements SecurityUtils
 // Fields
 //----------------------------------------------------------------------------------------------------------------------
 
-    protected MessageSourceAccessor messages = AcegiMessageSource.getAccessor();
+    protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
     private AuthenticationManager authenticationManager;
     private RunAsManager runAsManager = new NullRunAsManager();
     private AccessDecisionManager accessDecisionManager;
@@ -77,15 +83,9 @@ public class SecurityUtilsImpl implements SecurityUtils
 
             if (ctx.getAuthentication() == null || !ctx.getAuthentication().isAuthenticated() || alwaysReauthenticate)
             {
-                try
-                {
-                    authenticated = this.authenticationManager.authenticate(SecurityContextHolder.getContext()
+                authenticated = this.authenticationManager.authenticate(SecurityContextHolder.getContext()
                             .getAuthentication());
-                }
-                catch (AuthenticationException authenticationException)
-                {
-                    throw authenticationException;
-                }
+ 
 
                 // We don't authenticated.setAuthentication(true), because each provider should do that
                 if (getLog().isDebugEnabled())
@@ -106,14 +106,8 @@ public class SecurityUtilsImpl implements SecurityUtils
             }
 
             // Attempt authorization
-            try
-            {
-                this.accessDecisionManager.decide(authenticated, object, attr);
-            }
-            catch (AccessDeniedException accessDeniedException)
-            {
-                throw accessDeniedException;
-            }
+            this.accessDecisionManager.decide(authenticated, object, attr);
+
 
             if (getLog().isDebugEnabled())
             {
@@ -150,14 +144,12 @@ public class SecurityUtilsImpl implements SecurityUtils
 
     public ConfigAttributeDefinition createConfigAttributeDefinition(Class securedClass)
     {
-        SecurityAnnotationAttributes attributes = new SecurityAnnotationAttributes();
-        return createConfigAttributeDefinition(attributes.getAttributes(securedClass));
+        return createConfigAttributeDefinition((Secured)securedClass.getAnnotation(Secured.class));
     }
 
     public ConfigAttributeDefinition createConfigAttributeDefinition(Method securedMethod)
     {
-        SecurityAnnotationAttributes attributes = new SecurityAnnotationAttributes();
-        return createConfigAttributeDefinition(attributes.getAttributes(securedMethod));
+        return createConfigAttributeDefinition((Secured)securedMethod.getAnnotation(Secured.class));
     }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -193,13 +185,9 @@ public class SecurityUtilsImpl implements SecurityUtils
 // Other Methods
 //----------------------------------------------------------------------------------------------------------------------
 
-    private ConfigAttributeDefinition createConfigAttributeDefinition(Collection<? extends SecurityConfig> securityConfigs)
+    private ConfigAttributeDefinition createConfigAttributeDefinition(Secured securityConfigs)
     {
-        ConfigAttributeDefinition configAttributeDefinition = new ConfigAttributeDefinition();
-        for (SecurityConfig securityConfig : securityConfigs) {
-            configAttributeDefinition.addConfigAttribute(securityConfig);
-        }
-        return configAttributeDefinition;
+        return new ConfigAttributeDefinition(securityConfigs.value());
     }
 
     public void setLog(Log log) {

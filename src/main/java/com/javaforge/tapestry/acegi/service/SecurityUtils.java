@@ -16,9 +16,9 @@
 
 package com.javaforge.tapestry.acegi.service;
 
-import org.acegisecurity.ConfigAttributeDefinition;
-
 import java.lang.reflect.Method;
+
+import org.springframework.security.ConfigAttributeDefinition;
 
 /**
  * @author James Carman

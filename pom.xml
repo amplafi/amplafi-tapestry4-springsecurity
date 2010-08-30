@@ -42,7 +42,7 @@
         </license>
     </licenses>
     <properties>
-        <spring-security-build>2.0.0</spring-security-build>
+        <spring-security-build>2.0.5.RELEASE</spring-security-build>
         <spring-build>2.0.8</spring-build>
     </properties>
     <build>

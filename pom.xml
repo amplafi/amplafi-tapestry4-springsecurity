@@ -174,10 +174,10 @@
             <scope>test</scope>
             <optional>true</optional>
             <exclusions>
-                <exclusion>
+                <!-- (surefire 2.7)exclusion>
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
-                </exclusion>
+                </exclusion-->
             </exclusions>
         </dependency>
     </dependencies>

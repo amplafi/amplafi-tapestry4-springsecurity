@@ -16,8 +16,6 @@
 
 package com.javaforge.tapestry.acegi.enhance;
 
-import java.util.Collection;
-
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.event.PageValidateListener;

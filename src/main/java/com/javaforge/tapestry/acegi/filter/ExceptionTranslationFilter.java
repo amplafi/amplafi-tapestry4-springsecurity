@@ -26,19 +26,20 @@ import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.BindingException;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.error.ExceptionPresenter;
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.AuthenticationException;
-import org.springframework.security.AuthenticationTrustResolver;
-import org.springframework.security.AuthenticationTrustResolverImpl;
-import org.springframework.security.InsufficientAuthenticationException;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.ui.AbstractProcessingFilter;
-import org.springframework.security.ui.AccessDeniedHandler;
-import org.springframework.security.ui.AccessDeniedHandlerImpl;
-import org.springframework.security.ui.AuthenticationEntryPoint;
-import org.springframework.security.ui.savedrequest.SavedRequest;
-import org.springframework.security.util.PortResolver;
-import org.springframework.security.util.PortResolverImpl;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.PortResolver;
+import org.springframework.security.web.PortResolverImpl;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.util.Assert;
 
 /**
@@ -211,7 +212,7 @@ public class ExceptionTranslationFilter implements ExceptionPresenterFilter
 
     protected void sendStartAuthentication(AuthenticationException reason) throws ServletException, IOException
     {
-        SavedRequest savedRequest = new SavedRequest(request, portResolver);
+        SavedRequest savedRequest = new DefaultSavedRequest(request, portResolver);
 
         if (getLog().isDebugEnabled())
         {
@@ -222,7 +223,7 @@ public class ExceptionTranslationFilter implements ExceptionPresenterFilter
         {
             // Store the HTTP request itself. Used by AbstractProcessingFilter
             // for redirection after successful authentication (SEC-29)
-            request.getSession().setAttribute(AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY, savedRequest);
+            request.getSession().setAttribute(WebAttributes.SAVED_REQUEST, savedRequest);
         }
 
         // SEC-112: Clear the SecurityContextHolder's Authentication, as the

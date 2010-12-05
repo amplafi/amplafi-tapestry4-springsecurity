@@ -42,8 +42,8 @@
         </license>
     </licenses>
     <properties>
-        <spring-security-build>2.0.5.RELEASE</spring-security-build>
-        <spring-build>2.0.8</spring-build>
+        <spring-security-build>3.0.3.RELEASE</spring-security-build>
+        <spring-build>3.0.4.RELEASE</spring-build>
     </properties>
     <build>
         <defaultGoal>deploy</defaultGoal>
@@ -112,21 +112,6 @@
         <!-- BEGIN Spring security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core-tiger</artifactId>
-            <version>${spring-security-build}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>${spring-security-build}</version>
             <exclusions>
@@ -139,6 +124,11 @@
                     <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+	<dependency>
+            <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-web</artifactId>
+	    <version>${spring-security-build}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

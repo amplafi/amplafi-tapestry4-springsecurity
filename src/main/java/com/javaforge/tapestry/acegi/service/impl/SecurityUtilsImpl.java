@@ -16,21 +16,26 @@
 
 package com.javaforge.tapestry.acegi.service.impl;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.security.AccessDecisionManager;
-import org.springframework.security.Authentication;
-import org.springframework.security.AuthenticationCredentialsNotFoundException; 
-import org.springframework.security.AuthenticationManager;
-import org.springframework.security.ConfigAttributeDefinition;
-import org.springframework.security.RunAsManager;
-import org.springframework.security.SpringSecurityMessageSource;
-import org.springframework.security.annotation.Secured;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.runas.NullRunAsManager;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.annotation.SecuredAnnotationSecurityMetadataSource;
+import org.springframework.security.access.intercept.RunAsManager;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.SpringSecurityMessageSource;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
 import com.javaforge.tapestry.acegi.service.SecurityUtils;
@@ -48,15 +53,15 @@ public class SecurityUtilsImpl implements SecurityUtils
 
     protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
     private AuthenticationManager authenticationManager;
-    private RunAsManager runAsManager = new NullRunAsManager();
+    private RunAsManager runAsManager = new  NullRunAsManager();
     private AccessDecisionManager accessDecisionManager;
     private boolean alwaysReauthenticate = false;
-
+    private SecuredAnnotationSecurityMetadataSource metadataSource = new SecuredAnnotationSecurityMetadataSource();
 //----------------------------------------------------------------------------------------------------------------------
 // SecurityUtils Implementation
 //----------------------------------------------------------------------------------------------------------------------
 
-    public void checkSecurity(Object object, ConfigAttributeDefinition attr)
+    public void checkSecurity(Object object, Collection<ConfigAttribute> attr)
     {
         Assert.notNull(object, "Object was null");
 
@@ -142,14 +147,21 @@ public class SecurityUtilsImpl implements SecurityUtils
         }
     }
 
-    public ConfigAttributeDefinition createConfigAttributeDefinition(Class securedClass)
+    public Collection<ConfigAttribute> createConfigAttributeDefinition(Class securedClass)
     {
-        return createConfigAttributeDefinition((Secured)securedClass.getAnnotation(Secured.class));
+        Annotation a = securedClass.getAnnotation(Secured.class);
+        String[] attributeTokens = ((Secured) a).value();
+        List<ConfigAttribute> attributes = new ArrayList<ConfigAttribute>(attributeTokens.length);
+        
+        for(String token : attributeTokens) {
+            attributes.add(new SecurityConfig(token));
+        }
+        
+        return attributes;
     }
-
-    public ConfigAttributeDefinition createConfigAttributeDefinition(Method securedMethod)
+    public Collection<ConfigAttribute> createConfigAttributeDefinition(Method securedMethod)
     {
-        return createConfigAttributeDefinition((Secured)securedMethod.getAnnotation(Secured.class));
+        return metadataSource.getAttributes(securedMethod, null);
     }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -184,11 +196,6 @@ public class SecurityUtilsImpl implements SecurityUtils
 //----------------------------------------------------------------------------------------------------------------------
 // Other Methods
 //----------------------------------------------------------------------------------------------------------------------
-
-    private ConfigAttributeDefinition createConfigAttributeDefinition(Secured securityConfigs)
-    {
-        return new ConfigAttributeDefinition(securityConfigs.value());
-    }
 
     public void setLog(Log log) {
         this.log = log;

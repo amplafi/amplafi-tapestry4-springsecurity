@@ -16,10 +16,12 @@
 
 package com.javaforge.tapestry.acegi.enhance;
 
+import java.util.Collection;
+
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.event.PageValidateListener;
-import org.springframework.security.ConfigAttributeDefinition;
+import org.springframework.security.access.ConfigAttribute;
 
 import com.javaforge.tapestry.acegi.service.SecurityUtils;
 
@@ -33,7 +35,7 @@ public class SecuredPageValidateListener implements PageValidateListener
 //----------------------------------------------------------------------------------------------------------------------
 
     private SecurityUtils securityUtils;
-    private ConfigAttributeDefinition configAttributeDefinition;
+    private Collection<ConfigAttribute> configAttributeDefinition;
 
 //----------------------------------------------------------------------------------------------------------------------
 // Static Methods

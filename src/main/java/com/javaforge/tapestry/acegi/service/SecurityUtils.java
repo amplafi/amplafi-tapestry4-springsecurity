@@ -17,8 +17,9 @@
 package com.javaforge.tapestry.acegi.service;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 
-import org.springframework.security.ConfigAttributeDefinition;
+import org.springframework.security.access.ConfigAttribute;
 
 /**
  * @author James Carman
@@ -30,9 +31,9 @@ public interface SecurityUtils
 // Other Methods
 //----------------------------------------------------------------------------------------------------------------------
 
-    public void checkSecurity(Object object, ConfigAttributeDefinition configAttributeDefinition);
+    public void checkSecurity(Object object, Collection<ConfigAttribute> configAttributeDefinition);
 
-    public ConfigAttributeDefinition createConfigAttributeDefinition(Class securedClass);
+    public Collection<ConfigAttribute> createConfigAttributeDefinition(Class securedClass);
 
-    public ConfigAttributeDefinition createConfigAttributeDefinition(Method securedMethod);
+    public Collection<ConfigAttribute> createConfigAttributeDefinition(Method securedMethod);
 }

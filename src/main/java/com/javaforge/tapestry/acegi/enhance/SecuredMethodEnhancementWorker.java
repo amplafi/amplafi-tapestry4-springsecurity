@@ -17,6 +17,7 @@
 package com.javaforge.tapestry.acegi.enhance;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 import org.apache.commons.logging.Log;
 import org.apache.hivemind.Location;
@@ -24,7 +25,7 @@ import org.apache.hivemind.service.MethodSignature;
 import org.apache.tapestry.annotations.MethodAnnotationEnhancementWorker;
 import org.apache.tapestry.enhance.EnhancementOperation;
 import org.apache.tapestry.spec.IComponentSpecification;
-import org.springframework.security.ConfigAttributeDefinition;
+import org.springframework.security.access.ConfigAttribute;
 
 import com.javaforge.tapestry.acegi.service.SecurityUtils;
 
@@ -52,8 +53,8 @@ public class SecuredMethodEnhancementWorker implements MethodAnnotationEnhanceme
     {
         getLog().debug("Securing method " + method + "...");
         final String securityUtilsField = op.addInjectedField("_$securityUtils", SecurityUtils.class, securityUtils);
-        final ConfigAttributeDefinition configAttributeDefinition = securityUtils.createConfigAttributeDefinition(method);
-        final String configAttributeDefinitionField = op.addInjectedField("_$configAttributeDefinition", ConfigAttributeDefinition.class, configAttributeDefinition);
+        final Collection<ConfigAttribute> configAttributeDefinition = securityUtils.createConfigAttributeDefinition(method);
+        final String configAttributeDefinitionField = op.addInjectedField("_$configAttributeDefinition", Collection.class, configAttributeDefinition);
         final StringBuffer methodBody = new StringBuffer("{\n");
         methodBody.append(securityUtilsField + ".checkSecurity(this," + configAttributeDefinitionField + ");\n");
         if (!method.getReturnType().equals(Void.TYPE))

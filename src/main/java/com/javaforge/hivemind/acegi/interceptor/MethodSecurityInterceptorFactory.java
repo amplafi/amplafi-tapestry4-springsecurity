@@ -25,11 +25,11 @@ import org.apache.hivemind.InterceptorStack;
 import org.apache.hivemind.ServiceInterceptorFactory;
 import org.apache.hivemind.internal.Module;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.AccessDecisionManager;
-import org.springframework.security.AuthenticationManager;
-import org.springframework.security.intercept.method.MethodDefinitionSource;
-import org.springframework.security.intercept.method.MethodDefinitionSourceEditor;
-import org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor;
+import org.springframework.security.access.method.MethodSecurityMetadataSource;
+import org.springframework.security.access.method.MethodSecurityMetadataSourceEditor;
+import org.springframework.security.authentication.AuthenticationManager;
 
 /**
  * @author James Carman
@@ -56,9 +56,9 @@ public class MethodSecurityInterceptorFactory implements ServiceInterceptorFacto
         interceptor.setAccessDecisionManager(accessDecisionManager);
         interceptor.setAuthenticationManager(authenticationManager);
         interceptor.setApplicationEventPublisher(applicationEventPublisher);
-        MethodDefinitionSourceEditor editor = new MethodDefinitionSourceEditor();
+        MethodSecurityMetadataSourceEditor editor = new MethodSecurityMetadataSourceEditor();
         editor.setAsText((String) parameters.get(0));
-        interceptor.setObjectDefinitionSource((MethodDefinitionSource) editor
+        interceptor.setSecurityMetadataSource((MethodSecurityMetadataSource) editor
                 .getValue());
         return new MethodInterceptorAdapter(interceptor);
     }

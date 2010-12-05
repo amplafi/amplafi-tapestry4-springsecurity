@@ -49,7 +49,7 @@ public class SecuredClassEnhancementWorker implements
                     "_$securityUtils", SecurityUtils.class, securityUtils);
             op.extendMethodImplementation(IComponent.class,
                     EnhanceUtils.FINISH_LOAD_SIGNATURE,
-                    "com.javaforge.tapestry.acegi.enhance.SecuredPageValidateListener.addTo("
+                    SecuredPageValidateListener.class.getCanonicalName()+".addTo("
                             + securityUtilsField + ", this);");
         }
     }

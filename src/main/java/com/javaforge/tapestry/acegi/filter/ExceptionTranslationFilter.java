@@ -15,11 +15,11 @@
  */
 
 package com.javaforge.tapestry.acegi.filter;
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hivemind.ApplicationRuntimeException;
@@ -171,7 +171,7 @@ public class ExceptionTranslationFilter implements ExceptionPresenterFilter
      * target URL and exception information in the <code>HttpSession</code> (the default). In situations where you do
      * not wish to unnecessarily create <code>HttpSession</code>s - because the user agent will know the failed URL,
      * such as with BASIC or Digest authentication - you may wish to set this property to <code>false</code>. Remember
-     * to also set the {@link org.acegisecurity.context.HttpSessionContextIntegrationFilter#allowSessionCreation} to
+     * to also set the {@link org.springframework.security.web.context.HttpSessionContextIntegrationFilter#allowSessionCreation} to
      * <code>false</code> if you set this property to <code>false</code>.
      *
      * @return <code>true</code> if the <code>HttpSession</code> will be used to store information about the failed

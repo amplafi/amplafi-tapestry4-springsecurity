@@ -28,13 +28,23 @@
     </parent>
     <name>Tapestry Javaforge</name>
     <scm>
-        <developerConnection>scm:svn:${svn-base}/${project.artifactId}/trunk</developerConnection>
+        <developerConnection>scm:git:${github-base}${project.artifactId}.git</developerConnection>
     </scm>
     <developers>
         <developer>
             <id>JC</id>
             <name>James Carman</name>
             <email>james@carmanconsulting.com</email>
+        </developer>
+        <developer>
+            <id>patmoore</id>
+            <name>Pat Moore</name>
+            <email>patmoore@amplafi.com</email>
+        </developer>
+        <developer>
+            <id>thequux</id>
+            <name>TheQuux</name>
+            <email>thequux@gmail.com</email>
         </developer>
     </developers>
     <licenses>

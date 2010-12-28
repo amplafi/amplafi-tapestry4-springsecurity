@@ -16,7 +16,12 @@
 
 package com.javaforge.tapestry.acegi.service.impl;
 
+import java.util.List;
+
+import javax.servlet.Filter;
+
 import com.javaforge.tapestry.acegi.filter.ServletRequestServicerFilterAdapter;
+
 import org.apache.hivemind.ErrorLog;
 import org.apache.hivemind.Location;
 import org.apache.hivemind.ServiceImplementationFactory;
@@ -28,9 +33,6 @@ import org.apache.hivemind.lib.pipeline.PipelineContribution;
 import org.apache.hivemind.lib.pipeline.PipelineParameters;
 import org.apache.hivemind.service.ClassFactory;
 import org.apache.tapestry.services.ServletRequestServicerFilter;
-
-import javax.servlet.Filter;
-import java.util.List;
 
 /**
  * @author James Carman
@@ -80,7 +82,7 @@ public class ServletRequestServicerPipelineFactory extends BaseLocatable impleme
         this.errorLog = errorLog;
     }
 
-    private class ServletFilterAwarePipelineAssembler extends PipelineAssembler
+    private static class ServletFilterAwarePipelineAssembler extends PipelineAssembler
     {
         public ServletFilterAwarePipelineAssembler(ErrorLog errorLog, String string, Class<?> aClass, Class<?> aClass1, ClassFactory classFactory, DefaultImplementationBuilder defaultImplementationBuilder)
         {

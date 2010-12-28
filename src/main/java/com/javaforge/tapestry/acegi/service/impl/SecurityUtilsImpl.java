@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.javaforge.tapestry.acegi.service.SecurityUtils;
+
 import org.apache.commons.logging.Log;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.access.AccessDecisionManager;
@@ -37,8 +39,6 @@ import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
-
-import com.javaforge.tapestry.acegi.service.SecurityUtils;
 
 /**
  * @author James Carman
@@ -77,7 +77,7 @@ public class SecurityUtilsImpl implements SecurityUtils
             // not call Context.validate() like the ContextInterceptor)
             if (SecurityContextHolder.getContext().getAuthentication() == null)
             {
-                new AuthenticationCredentialsNotFoundException(messages.getMessage("AbstractSecurityInterceptor.authenticationNotFound",
+                throw new AuthenticationCredentialsNotFoundException(messages.getMessage("AbstractSecurityInterceptor.authenticationNotFound",
                         "An Authentication object was not found in the SecurityContext"));
             }
 
@@ -90,7 +90,7 @@ public class SecurityUtilsImpl implements SecurityUtils
             {
                 authenticated = this.authenticationManager.authenticate(SecurityContextHolder.getContext()
                             .getAuthentication());
- 
+
 
                 // We don't authenticated.setAuthentication(true), because each provider should do that
                 if (getLog().isDebugEnabled())
@@ -152,11 +152,11 @@ public class SecurityUtilsImpl implements SecurityUtils
         Annotation a = securedClass.getAnnotation(Secured.class);
         String[] attributeTokens = ((Secured) a).value();
         List<ConfigAttribute> attributes = new ArrayList<ConfigAttribute>(attributeTokens.length);
-        
+
         for(String token : attributeTokens) {
             attributes.add(new SecurityConfig(token));
         }
-        
+
         return attributes;
     }
     public Collection<ConfigAttribute> createConfigAttributeDefinition(Method securedMethod)

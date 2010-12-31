@@ -104,7 +104,7 @@
         <dependency>
             <groupId>commons-proxy</groupId>
             <artifactId>commons-proxy</artifactId>
-            <optional>true</optional>
+            <version>${commons-proxy-build}</version>
         </dependency>
         <dependency>
             <groupId>hivemind</groupId>

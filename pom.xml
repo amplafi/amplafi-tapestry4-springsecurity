@@ -20,6 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.amplafi</groupId>
     <artifactId>amplafi-tapestry4-springsecurity</artifactId>
+    <version>1.0</version>
     <parent>
         <groupId>org.amplafi</groupId>
         <artifactId>amplafi-opensource-parent</artifactId>
@@ -55,7 +56,7 @@
         </license>
     </licenses>
     <properties>
-        <spring-security-build>3.0.3.RELEASE</spring-security-build>
+        <spring-security-build>3.0.4.RELEASE</spring-security-build>
         <spring-build>3.0.4.RELEASE</spring-build>
     </properties>
     <build>

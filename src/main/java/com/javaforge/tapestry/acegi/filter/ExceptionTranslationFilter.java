@@ -89,10 +89,10 @@ public class ExceptionTranslationFilter implements ExceptionPresenterFilter
             {
                 if (getLog().isDebugEnabled())
                 {
-                    getLog().debug("Authentication exception occurred; redirecting to authentication entry point", exception);
+                    getLog().debug("Authentication exception occurred; redirecting to authentication entry point", rootCause);
                 }
 
-                sendStartAuthentication((AuthenticationException) exception);
+                sendStartAuthentication((AuthenticationException) rootCause);
             }
             else if (rootCause instanceof AccessDeniedException)
             {
@@ -101,7 +101,7 @@ public class ExceptionTranslationFilter implements ExceptionPresenterFilter
                     if (getLog().isDebugEnabled())
                     {
                         getLog().debug("Access is denied (user is anonymous); redirecting to authentication entry point",
-                                exception);
+                            rootCause);
                     }
 
                     sendStartAuthentication(new InsufficientAuthenticationException("Full authentication is required to access this resource"));
@@ -114,7 +114,7 @@ public class ExceptionTranslationFilter implements ExceptionPresenterFilter
                                 exception);
                     }
 
-                    accessDeniedHandler.handle(request, response, (AccessDeniedException) exception);
+                    accessDeniedHandler.handle(request, response, (AccessDeniedException) rootCause);
                 }
             }
             else

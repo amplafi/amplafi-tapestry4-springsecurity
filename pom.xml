@@ -56,8 +56,8 @@
         </license>
     </licenses>
     <properties>
-        <spring-build>3.0.5.RELEASE</spring-build>
-        <spring-security-build>3.0.5.RELEASE</spring-security-build>
+        <spring-build>3.0.6.RELEASE</spring-build>
+        <spring-security-build>3.0.7.RELEASE</spring-security-build>
     </properties>
     <build>
         <defaultGoal>deploy</defaultGoal>

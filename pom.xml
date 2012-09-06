@@ -20,11 +20,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.amplafi</groupId>
     <artifactId>amplafi-tapestry4-springsecurity</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <parent>
         <groupId>org.amplafi</groupId>
         <artifactId>amplafi-opensource-parent</artifactId>
-        <version>0.9.3-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath>../amplafi-opensource-parent/pom.xml</relativePath>
     </parent>
     <name>Tapestry Javaforge</name>
